@@ -9,6 +9,14 @@ class Genre(models.Model):
     def __str__(self):
         """String for representing the Model object."""
         return self.name
+#LANGUAGE
+class Language(models.Model):
+    """Model representing a Language (e.g. English, French, Japanese, etc.)"""
+    name = models.CharField(max_length=200, help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
+
+    def __str__(self):
+        """String for representing the Model object (in Admin site etc.)"""
+        return self.name
 
 from django.urls import reverse # Used to generate URLs by reversing the URL patterns
 #BOOKS
@@ -22,9 +30,14 @@ class Book(models.Model):
 
     summary = models.TextField(max_length=1000, help_text='Enter a brief description of the book')
     isbn = models.CharField('ISBN', max_length=13, help_text='13 Character <a href="https://www.isbn-international.org/content/what-isbn">ISBN number</a>')
-    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True)
+    language = models.ForeignKey('Language', on_delete=models.SET_NULL, null=True, blank=True)
     # Genre class has already been defined so we can specify the object above.
     genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = 'Genre'
 
     def __str__(self):
         """String for representing the Model object."""
@@ -34,14 +47,6 @@ class Book(models.Model):
         """Returns the url to access a detail record for this book."""
         return reverse('book-detail', args=[str(self.id)])
 
-#LANGUAGE
-class Language(models.Model):
-    """Model representing a Language (e.g. English, French, Japanese, etc.)"""
-    name = models.CharField(max_length=200, help_text="Enter the book's natural language (e.g. English, French, Japanese etc.)")
-
-    def __str__(self):
-        """String for representing the Model object (in Admin site etc.)"""
-        return self.name
 
 import uuid # Required for unique book instances
 #BOOK INSTANCES
