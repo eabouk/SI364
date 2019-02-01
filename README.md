@@ -1,7 +1,8 @@
 # SI364
 Building applications class in SI at University of Michigan
 
-FINAL PROJECT DESCRIPTION
+FINAL PROJECT DESCRIPTION:
+
 My project I’m going to create is a web facing interface for music data (music dataset TBD). It will have 
 tables for Artists, Tracks, Albums, Genres, Users and Record Label associated with the albums. A many to many 
 relationship would be that an artist can create many albums, and albums can have many artists on it 
