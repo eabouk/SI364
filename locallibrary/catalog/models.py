@@ -63,6 +63,7 @@ class BookInstance(models.Model):
     borrower = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     #borrow is an attribute that connects the user's ID as the borrower attribute
 
+
     @property
     def is_overdue(self):
         if self.due_back and date.today() > self.due_back:
@@ -87,6 +88,7 @@ class BookInstance(models.Model):
 
     class Meta:
         ordering = ['due_back']
+        permissions = (("can_mark_returned", "Set book as returned"),)
 
     def __str__(self):
         """String for representing the Model object."""
