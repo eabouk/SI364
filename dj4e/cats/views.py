@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -6,8 +7,8 @@ from django.http import HttpResponse
 from django.template.loader import render_to_string
 # Create your views here.
 
-from autos.models import Cats, Breed
-from autos.forms import MakeForm
+from cats.models import Cats, Breed
+from cats.forms import BreedForm
 
 class MainView(LoginRequiredMixin, View) :
     def get(self, request):
@@ -41,7 +42,7 @@ class BreedCreate(LoginRequiredMixin, View):
         return redirect(self.success_url)
 
 class BreedUpdate(LoginRequiredMixin, View):
-    model = Make
+    model = Breed
     success_url = reverse_lazy('cats')
     template = 'cats/breed_form.html'
     def get(self, request, pk) :
@@ -61,9 +62,9 @@ class BreedUpdate(LoginRequiredMixin, View):
         return redirect(self.success_url)
 
 class BreedDelete(LoginRequiredMixin, DeleteView):
-    model = Make
+    model = Breed
     success_url = reverse_lazy('cats')
-    template = 'catss/make_confirm_delete.html'
+    template = 'cats/breeds_confirm_delete.html'
 
     def get(self, request, pk) :
         breed = get_object_or_404(self.model, pk=pk) 
