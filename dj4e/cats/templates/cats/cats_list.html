@@ -6,7 +6,7 @@
   <ul>
     {% for cat in cats_list %}
       <li>
-          {{ cats.name }} ({{ cats.make }})
+          {{ cats.name }} ({{ cats.breed }})
           (<a href="{% url 'cats_update' cats.id %}">Update</a> |
           <a href="{% url 'cats_delete' cats.id %}">Delete</a>) <br/>
           {{ cats.comments }} ({{ cats.weight }} lbs.)
@@ -17,7 +17,7 @@
     <p>There are no cats in the directory.</p>
   {% endif %}
   <p>
-    {% if breeds_count > 0 %}
+    {% if breed_count > 0 %}
       <a href="{% url 'cats_create' %}">Add a cat</a>
     {% else %}
       Please add a breed before you add a cat.
@@ -25,6 +25,6 @@
   </p>
   <p>
   <a href="{% url 'breeds_list' %}">View Breeds</a> ({{ breed_count }}) | 
-    <a href="{% url 'breeds_create' %}">Add a breed</a>
+    <a href="{% url 'breed_create' %}">Add a breed</a>
   </p>
 {% endblock %}

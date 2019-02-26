@@ -12,28 +12,28 @@ from cats.forms import BreedForm
 
 class MainView(LoginRequiredMixin, View) :
     def get(self, request):
-        bc = breed.objects.all().count();
-        cats = cats.objects.all();
+        bc = Breed.objects.all().count();
+        cats = Cats.objects.all();
 
         ctx = { 'breed_count': bc, 'cats_list': cats };
         return render(request, 'cats/cats_list.html', ctx)
 
 class BreedView(LoginRequiredMixin,View) :
     def get(self, request):
-        ml = breeds.objects.all();
-        ctx = { 'breed_list': ml };
+        ml = Breed.objects.all();
+        ctx = { 'breeds_list': ml };
         return render(request, 'cats/breed_list.html', ctx)
 
 class BreedCreate(LoginRequiredMixin, View):
     template = 'cats/breed_form.html'
     success_url = reverse_lazy('cats')
     def get(self, request) :
-        form = MakeForm()
+        form = BreedForm()
         ctx = { 'form': form }
         return render(request, self.template, ctx)
 
     def post(self, request) :
-        form = MakeForm(request.POST)
+        form = BreedForm(request.POST)
         if not form.is_valid() :
             ctx = {'form' : form}
             return render(request, self.template, ctx)
@@ -53,7 +53,7 @@ class BreedUpdate(LoginRequiredMixin, View):
 
     def post(self, request, pk) :
         breed = get_object_or_404(self.model, pk=pk) 
-        form = BreedForm(request.POST, instance = make)
+        form = BreedForm(request.POST, instance = breed)
         if not form.is_valid() :
             ctx = {'form' : form}
             return render(request, self.template, ctx)
