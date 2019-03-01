@@ -14,13 +14,13 @@ class Breed(models.Model):
         """String for representing the Model object."""
         return self.name
     
-class Cats(models.Model) : 
-    name = models.CharField(
+class Cats(models.Model): 
+    nickname = models.CharField(
             max_length=200,
             validators=[MinLengthValidator(2, "Nickname must be greater than 1 character")]
     )
     weight = models.PositiveIntegerField()
-    comments = models.CharField(max_length=300)
+    foods = models.CharField(max_length=300)
     breed = models.ForeignKey('Breed', on_delete=models.CASCADE, null=False)
 
     # Shows up in the admin list

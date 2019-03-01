@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Auto List</h1>
+  <h1>Cats List</h1>
   {% if cats_list %}
   <ul>
     {% for cat in cats_list %}
       <li>
-          {{ cats.name }} ({{ cats.breed }})
-          (<a href="{% url 'cats_update' cats.id %}">Update</a> |
-          <a href="{% url 'cats_delete' cats.id %}">Delete</a>) <br/>
-          {{ cats.comments }} ({{ cats.weight }} lbs.)
+          {{ cat.nickname }} ({{ cat.breed }})
+          (<a href="{% url 'cats_update' cat.id %}">Update</a> |
+          <a href="{% url 'cats_delete' cat.id %}">Delete</a>) <br/>
+           ({{ cat.weight }} lbs.)
       </li>
     {% endfor %}
   </ul>
@@ -24,7 +24,7 @@
     {% endif %}
   </p>
   <p>
-  <a href="{% url 'breeds_list' %}">View Breeds</a> ({{ breed_count }}) | 
+  <a href="{% url 'breeds_list' %}">View breeds</a> ({{ breed_count }}) | 
     <a href="{% url 'breed_create' %}">Add a breed</a>
   </p>
 {% endblock %}

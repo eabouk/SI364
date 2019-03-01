@@ -47,7 +47,7 @@ class BreedUpdate(LoginRequiredMixin, View):
     template = 'cats/breed_form.html'
     def get(self, request, pk) :
         breed = get_object_or_404(self.model, pk=pk) 
-        form = BreedForm(instance=make)
+        form = BreedForm(instance=breed)
         ctx = { 'form': form }
         return render(request, self.template, ctx)
 
@@ -74,7 +74,7 @@ class BreedDelete(LoginRequiredMixin, DeleteView):
 
     def post(self, request, pk) :
         breed = get_object_or_404(self.model, pk=pk) 
-        make.delete()
+        breed.delete()
         return redirect(self.success_url)
 
 # Take the easy way out on the main table
