@@ -13,7 +13,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Used for a default title
-APP_NAME = 'EmmasList'   # Add
+APP_NAME = 'Emmas Adlist'   # Add
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -38,15 +38,16 @@ INSTALLED_APPS = [
     'django.contrib.humanize',  # Add
 
     # Extentions - see requirements.txt
+    'django_extensions', # Add
     'crispy_forms',  # Add
     'rest_framework',  # Add
     'social_django',  # Add
     'home.apps.HomeConfig',  # Add - Common folder
-    'adlist.apps.AdlistConfig',
+    'ads.apps.AdsConfig',  # Add - Common folder
 ]
 
 # When we get to crispy forms :)
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+CRISPY_TEMPLATE_PACK = 'bootstrap3' # Add
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -160,12 +161,12 @@ except:
     raise Exception('social django not installed, please see requirements.txt')
 
 # Configure the social login
-#try:
-#    from . import github_settings 
-#    SOCIAL_AUTH_GITHUB_KEY = github_settings.SOCIAL_AUTH_GITHUB_KEY
-#    SOCIAL_AUTH_GITHUB_SECRET = github_settings.SOCIAL_AUTH_GITHUB_SECRET
-#except:
-#    print('Could not import github_settings.py for social_django, please see samples/github_settings-dist.py')
+try:
+    from . import github_settings 
+    SOCIAL_AUTH_GITHUB_KEY = github_settings.SOCIAL_AUTH_GITHUB_KEY
+    SOCIAL_AUTH_GITHUB_SECRET = github_settings.SOCIAL_AUTH_GITHUB_SECRET
+except:
+    print('Could not import github_settings.py for social_django, please see samples/github_settings-dist.py')
 
 # https://python-social-auth.readthedocs.io/en/latest/configuration/django.html#authentication-backends
 # https://simpleisbetterthancomplex.com/tutorial/2016/10/24/how-to-add-social-login-to-django.html
