@@ -9,24 +9,32 @@
     </div>
     <!-- https://stackoverflow.com/questions/22047251/django-dynamically-get-view-url-and-check-if-its-the-current-page -->
     <ul class="nav navbar-nav">
-      {% url 'ads' as ads %}
+      {% url 'ads' as ad %}
       <li {% if request.get_full_path == menu_main %}class="active"{% endif %}>
-          <a href="{% url 'ads' %}">Home</a></li>
-      {% url 'ads_page1' as ads_page1 %}
+          <a href="{% url 'ads' %}">Advertisements</a></li>
+          <!--Got rid of _page1-->
+<!--
+      {% url 'ads' as ads %}
       <li {% if request.get_full_path == menu_page1 %}class="active"{% endif %}>
-          <a href="{% url 'ads_page1' %}">Page 1</a></li>
-      {% url 'ads_page2' as menu_page2 %}
+          <a href="{% url 'ads' %}">Advertisements</a></li>
+-->
+          <!--Got rid of _page2-->
+<!--
+      {% url 'ads' as ads %}
       <li {% if request.get_full_path == menu_page2 %}class="active"{% endif %}>
-          <a href="{% url 'ads_page2' %}">Page 2</a></li>
+          <a href="{% url 'ads' %}">Page 2</a></li>
       <li class="dropdown">
       <a href="#" data-toggle="dropdown" class="dropdown-toggle">Drop Down<b class="caret"></b></a>
         <ul class="dropdown-menu">
-            <li><a href="{% url 'ads_page3' %}">Page 3</a></li>
+           Got rid of _page3
+            <li><a href="{% url 'ads' %}">Page 3</a></li>
         </ul>
        </li>
+-->
     </ul>
     <ul class="nav navbar-nav navbar-right">
       {% if user.is_authenticated %}
+      <li><a href="{% url 'ad_create' %}">Create Ad</a></li><!--add something here?!-->
       <li class="dropdown">
       <!-- gravatar depends on app_tags being loaded -->
       <!-- https://brobin.me/blog/2016/07/super-simple-django-gravatar/ -->

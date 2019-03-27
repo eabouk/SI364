@@ -18,12 +18,12 @@ class AdDetailView(AdDetailView):
 
 class AdCreateView(AdCreateView):
     model = Ad
-    fields = ['title', 'text']
+    fields = ['title','price', 'text']
     template_name = "ad_form.html"
 
 class AdUpdateView(AdUpdateView):
     model = Ad
-    fields = ['title', 'text']
+    fields = ['title', 'price', 'text']
     template_name = "ad_form.html"
 
 class AdDeleteView(AdDeleteView):

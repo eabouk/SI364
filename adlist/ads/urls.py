@@ -5,9 +5,9 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    path('', views.AdListView.as_view()),
-    path('ads', views.AdListView.as_view(), name='ads'),
-    path('ads/<int:pk>', views.AdDetailView.as_view(), name='ad_detail'),
+    path('', views.AdListView.as_view(), name='ads'),
+    #path('ads', views.AdListView.as_view(), name='ads'),
+    path('ads/<int:pk>/detail', views.AdDetailView.as_view(), name='ad_detail'),
     path('ads/create', 
         views.AdCreateView.as_view(success_url=reverse_lazy('ads')), name='ad_create'),
     path('ads/<int:pk>/update', 
