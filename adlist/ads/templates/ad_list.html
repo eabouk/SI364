@@ -10,7 +10,7 @@
         {% if ad.owner == user %}
         (<a href="{% url 'ad_update' ad.id %}">Edit</a> |
         <a href="{% url 'ad_delete' ad.id %}">Delete</a>)
-        </p>
+        
         {% endif %}
     </li>
   {% endfor %}
