@@ -6,6 +6,8 @@ from django.utils.deconstruct import deconstructible
 from django.utils.functional import SimpleLazyObject
 from django.utils.ipv6 import is_valid_ipv6_address
 from django.utils.translation import gettext_lazy as _, ngettext_lazy
+from django.core.validators import MinLengthValidator
+
 
 from django.views.generic import CreateView, UpdateView, DeleteView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -26,10 +28,30 @@ class Ad(models.Model) :
     
     picture = models.BinaryField(null=True, editable=True)
     content_type = models.CharField(max_length=256, null=True, help_text='The MIMEType of the file')
+    
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comments = models.ManyToManyField(settings.AUTH_USER_MODEL,
+        through='Comment', related_name='comments_owned')
+
+class Comment(models.Model) :
+    text = models.TextField(
+        validators=[MinLengthValidator(3, "Comment must be greater than 3 characters")]
+    )
+
+    ad = models.ForeignKey(Ad, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     # Shows up in the admin list
     def __str__(self):
-        return self.title
-    
+        if len(self.text) < 15 : return self.text
+        return self.text[:11] + ' ...'
+
+    # Shows up in the admin list
+#    def __str__(self):
+#        return self.title
+#    
     
 
