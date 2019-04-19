@@ -1,0 +1,50 @@
+{% extends "base_menu.html" %}
+{% load humanize %} <!-- https://docs.djangoproject.com/en/2.1/ref/contrib/humanize -->
+{% block content %}
+<span style="float: right;">
+({{ star.updated_at|naturaltime }})
+{% if star.owner == user %}
+<a href="{% url 'star_update' star.id %}"><i class="fa fa-pencil"></i></a>
+<a href="{% url 'star_delete' star.id %}"><i class="fa fa-trash"></i></a>
+{% endif %}
+</span>
+<h1>{{ star.name }}</h1>
+<!--
+{% if star.content_type %}
+<img style="float:right; max-width:50%;" src="{% url 'star_picture' star.id %}">
+-->
+<!--{% endif %}-->
+<p><b>Distance:</b>
+{{ star.distance }}
+</p><b>Diameter:</b>
+{{ star.diameter }}
+<p>
+({{ star.updated_at|naturaltime }})
+</p>
+{% if user.is_authentistared %}
+<br clear="all"/>
+<p>
+<form method="post" action="{% url 'comment_create' star.id %}">
+    {% csrf_token %}
+
+   <!--got rid of the crispy next to the or next to comment_form-->
+    {{ comment_form }}
+<input type="submit" value="Submit">
+<input type="submit" value="All Ads" onclick="window.lostarion.href='{% url 'stars' %}';return false;">
+</form>
+</p>
+{% endif %}
+{% for comment in comments %}
+<p> {{ comment.text }} 
+({{ comment.updated_at|naturaltime }})
+{% if user == comment.owner %}
+<a href="{% url 'comment_delete' comment.id %}"><i class="fa fa-trash"></i></a>
+{% endif %}
+</p>
+{% endfor %}
+<!--
+<p>
+<a href="{% url 'ads' %}">All ads</a>
+</p>
+-->
+{% endblock %}
