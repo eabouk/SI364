@@ -5,7 +5,7 @@ from django.views.generic import TemplateView
 
 
 urlpatterns = [
-    path('', views.AdListView.as_view(), name='ads'),
+    path('', views.ThingListView.as_view(), name='ads'),
     #path('ads', views.AdListView.as_view(), name='ads'),
     path('ads/<int:pk>/detail', views.AdDetailView.as_view(), name='ad_detail'),
     path('ads/create', 
@@ -15,4 +15,12 @@ urlpatterns = [
     path('ads/<int:pk>/delete', 
         views.AdDeleteView.as_view(success_url=reverse_lazy('ads')), name='ad_delete'),
     path('ad_picture/<int:pk>', views.stream_file, name='ad_picture'),
+    path('ad/<int:pk>/comment',
+        views.CommentCreateView.as_view(), name='comment_create'),
+    path('comment/<int:pk>/delete',
+        views.CommentDeleteView.as_view(success_url=reverse_lazy('forums')), name='comment_delete'),
+    path('ad/<int:pk>/favorite',
+    views.AddFavoriteView.as_view(), name='ad_favorite'),
+    path('ad/<int:pk>/unfavorite',
+    views.DeleteFavoriteView.as_view(), name='ad_unfavorite')
 ]
